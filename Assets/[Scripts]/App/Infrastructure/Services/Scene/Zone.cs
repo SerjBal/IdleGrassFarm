@@ -8,10 +8,10 @@ namespace Serjbal
     {
         [SerializeField] private ItemType _grassType;
         [SerializeField] private Renderer _targetRenderer;
-        [SerializeField] private Color _brushColor = Color.red;
         [SerializeField] private string _mapName = "_BaseMap";
 
-        private float _brushRadius = 0.1f;
+        private float _startMawRadius = 0.1f;
+        private float _finalMawRadius = 0.1f;
         private TexturePainter _texturePainter;
         private Texture2D _paintTexture;
         private int _mowedPixels;
@@ -22,19 +22,16 @@ namespace Serjbal
         private void Start()
         {
             _texturePainter = new TexturePainter();
-            _paintTexture = new Texture2D(1024, 1024, TextureFormat.RGBA32, false);
-    
-            Color[] colors = new Color[1024 * 1024];
-            for (int i = 0; i < colors.Length; i++)
-            {
-                colors[i] = Color.black;
-            }
-            _paintTexture.SetPixels(colors);
-            _paintTexture.Apply();
-
+            _paintTexture = CreateTexture();
+            
             _propertyBlock = new MaterialPropertyBlock();
             _propertyBlock.SetTexture(_mapName, _paintTexture);
             _targetRenderer.SetPropertyBlock(_propertyBlock);
+        }
+
+        public void SetMowRadius(int upgradeLevel)
+        {
+            _finalMawRadius = _startMawRadius * upgradeLevel;
         }
 
         public void Mow(Vector3 position)
@@ -46,7 +43,7 @@ namespace Serjbal
                 if (hit.collider.name == gameObject.name)
                 {
                     Vector2 uv = hit.textureCoord;
-                    var painted = _texturePainter.PaintTexture(_paintTexture, uv, _brushRadius, _brushColor);
+                    var painted = _texturePainter.PaintTexture(_paintTexture, uv, _finalMawRadius, Color.white);
 
                     if (_propertyBlock != null)
                     {
@@ -57,6 +54,19 @@ namespace Serjbal
                     OnMewed?.Invoke(_grassType, painted);
                 }
             }
+        }
+
+        private Texture2D CreateTexture()
+        {
+            var texture = new Texture2D(1024, 1024, TextureFormat.RGBA32, false);
+            Color[] colors = new Color[1024 * 1024];
+            for (int i = 0; i < colors.Length; i++)
+            {
+                colors[i] = Color.black;
+            }
+            texture.SetPixels(colors);
+            texture.Apply();
+            return texture;
         }
     }
 }

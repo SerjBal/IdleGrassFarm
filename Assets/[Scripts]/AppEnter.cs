@@ -17,19 +17,6 @@ namespace Serjbal
             InitializeServices();
         }
 
-        private void OnDestroy()
-        {
-            Despose();
-        }
-
-        private void Despose()
-        {
-            foreach (Type serviceType in DI.GetAllServices())
-            {
-                (DI.GetService(serviceType) as IDisposable)?.Dispose();
-            }
-        }
-
         private void InitializeServices()
         {
             foreach (Type serviceType in DI.GetAllServices())
@@ -44,6 +31,19 @@ namespace Serjbal
             {
                 if (service == null) continue;
                 DI.AddService(service);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            Despose();
+        }
+
+        private void Despose()
+        {
+            foreach (Type serviceType in DI.GetAllServices())
+            {
+                (DI.GetService(serviceType) as IDisposable)?.Dispose();
             }
         }
     }

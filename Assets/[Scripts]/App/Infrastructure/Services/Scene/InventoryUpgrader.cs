@@ -2,18 +2,17 @@ using UnityEngine;
 
 namespace Serjbal
 {
-    public class InventoryUpgrader : MonoBehaviour
+    public class InventoryUpgrader : MonoBehaviour, IUpgrader
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+
+        public void Upgrade()
         {
-        
+          
         }
 
-        // Update is called once per frame
-        void Update()
+        public void Interact()
         {
-        
+            
         }
     }
 }

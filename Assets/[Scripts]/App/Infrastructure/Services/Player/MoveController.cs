@@ -6,6 +6,7 @@ namespace Serjbal
     [RequireComponent(typeof(CharacterController))]
     public class MoveController : MonoBehaviour
     {
+        public bool IsMoving;
         [SerializeField] private float _moveSpeed = 5f;
         [SerializeField] private float _rotationSpeed = 15f;
         [SerializeField] private float _gravity = -9.81f;
@@ -16,7 +17,8 @@ namespace Serjbal
         private InputAction _moveAction;
         private Vector2 _moveInput;
         private Vector3 _velocity;
-        private bool _isGrounded;
+
+        private Transform _camera;
 
         private void Awake()
         {
@@ -29,6 +31,8 @@ namespace Serjbal
             {
                 _moveAction = _playerInput.actions["Move"];
             }
+
+            _camera = Camera.main.transform;
         }
 
         private void OnEnable()
@@ -51,7 +55,6 @@ namespace Serjbal
 
         private void Update()
         {
-            HandleGravity();
             HandleMovement();
             HandleRotation();
         }
@@ -59,19 +62,21 @@ namespace Serjbal
         private void OnMovePerformed(InputAction.CallbackContext context)
         {
             _moveInput = context.ReadValue<Vector2>();
+            IsMoving = true;
         }
 
         private void OnMoveCanceled(InputAction.CallbackContext context)
         {
             _moveInput = Vector2.zero;
+            IsMoving = false;
         }
 
         private void HandleMovement()
         {
             if (_moveInput.magnitude < 0.1f) return;
 
-            Vector3 cameraForward = Camera.main.transform.forward;
-            Vector3 cameraRight = Camera.main.transform.right;
+            Vector3 cameraForward = _camera.forward;
+            Vector3 cameraRight = _camera.right;
             
             cameraForward.y = 0;
             cameraRight.y = 0;
@@ -91,8 +96,8 @@ namespace Serjbal
         {
             if (_moveInput.magnitude < 0.1f) return;
 
-            Vector3 cameraForward = Camera.main.transform.forward;
-            Vector3 cameraRight = Camera.main.transform.right;
+            Vector3 cameraForward = _camera.forward;
+            Vector3 cameraRight = _camera.right;
             
             cameraForward.y = 0;
             cameraRight.y = 0;
@@ -110,20 +115,6 @@ namespace Serjbal
                     _rotationSpeed * Time.deltaTime
                 );
             }
-        }
-
-        private void HandleGravity()
-        {
-            if (_isGrounded && _velocity.y < 0)
-            {
-                _velocity.y = -0.5f;
-            }
-            else
-            {
-                _velocity.y += _gravity * Time.deltaTime;
-            }
-
-            _characterController.Move(_velocity * Time.deltaTime);
         }
     }
 }

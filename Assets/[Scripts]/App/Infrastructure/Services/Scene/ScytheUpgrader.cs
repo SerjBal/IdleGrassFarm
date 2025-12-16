@@ -4,7 +4,8 @@ namespace Serjbal
 {
     public class ScytheUpgrader : MonoBehaviour, IUpgrader
     {
-        public void Upgrade()
+
+        public void Interact()
         {
             
         }

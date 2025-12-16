@@ -1,5 +1,4 @@
 using System;
-using Serjbal.Core;
 using Serjbal.Infrastructure.Services;
 using UnityEngine;
 
@@ -7,32 +6,56 @@ namespace Serjbal
 {
     public class Player : MonoBehaviour, IPlayer
     {
-        [SerializeField] private Transform _character;
+        [SerializeField] private MoveController _character;
         public Action<Vector3> OnMow { get; set; }
-        public Action OnUpgrade { get; set; }
-        public Action OnSell { get; set; }
-        
 
         public void Init()
         {
             Debug.Log("Player Initialized");
         }
         
-        
+        public void PutToInventory(ItemType itemType, int value)
+        {
+            DI.GetService<IInventory>().PutItem(itemType, value);
+        }
+
+        public void TakeFromInventory(ItemType itemType, int value)
+        {
+            DI.GetService<IInventory>().TakeItem(itemType, value);
+        }
+
+        public int CheckInventory(ItemType itemType)
+        {
+            return DI.GetService<IInventory>().CheckItem(itemType);
+        }
+
+        public void UpgradeInventory(int level)
+        {
+            DI.GetService<IInventory>().SetLevel(level);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent<IInteractable>(out var upgrader))
+            {
+                upgrader.Interact();
+            }
+        }
+
         private void Update()
         {
-            OnMow.Invoke(_character.position);
+            if (_character.IsMoving && _mowAnimT == 0)
+            {
+                _mowAnimT = _mowAnimTime;
+                OnMow?.Invoke(_character.transform.position);
+            }
+            else
+            {
+                _mowAnimT = Mathf.Clamp01(_mowAnimT - Time.deltaTime);
+            }
         }
-    }
 
-    public interface IPlayer : IService, IInitializable
-    {
-        Action<Vector3> OnMow { get; set; }
-        Action OnUpgrade { get; set; }
-        Action OnSell { get; set; }
-
-        // void AddToInventory(ItemType itemType, int value);
-        //
-        // void GetFromInventory(ItemType itemType, int value);
+        private float _mowAnimT = 0.5f;
+        private float _mowAnimTime = 0.5f;
     }
 }
