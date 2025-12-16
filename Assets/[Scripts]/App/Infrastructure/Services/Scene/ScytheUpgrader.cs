@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace Serjbal
 {
-    public class ScytheUpgrader : MonoBehaviour, ICustomer
+    public class ScytheUpgrader : MonoBehaviour, IUpgrader
     {
-        public void Buy()
+        public void Upgrade()
         {
             
         }

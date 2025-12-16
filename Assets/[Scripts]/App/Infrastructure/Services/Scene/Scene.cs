@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Serjbal.Core;
+using Serjbal.Infrastructure.Services;
 
 namespace Serjbal
 {
@@ -11,13 +13,13 @@ namespace Serjbal
     {
         private ICustomer customer;
         private IUpgrader[] upgraders;
-        private IZones[] zones;
+        private IZone[] zones;
 
         public void Init()
         {
             customer = GetComponentInChildren<ICustomer>();
             upgraders = GetComponentsInChildren<IUpgrader>();
-            zones = GetComponentsInChildren<IZones>();
+            zones = GetComponentsInChildren<IZone>();
 
             var player = DI.GetService<IPlayer>();
             player.OnSell += customer.Buy;
@@ -25,12 +27,15 @@ namespace Serjbal
                 player.OnUpgrade += upgrader.Upgrade;
             foreach (var zone in zones)
                 player.OnMow += zone.Mow;
+            
+            Debug.Log("Scene Initialized");
         }
     }
 
-    public interface IZones
+    public interface IZone
     {
-        void Mow();
+        Action<ItemType, int> OnMewed { get; set; }
+        void Mow(Vector3 position);
     }
 
     public interface IUpgrader
