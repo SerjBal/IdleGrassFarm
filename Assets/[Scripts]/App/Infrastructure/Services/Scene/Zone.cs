@@ -9,9 +9,7 @@ namespace Serjbal
         [SerializeField] private Renderer _targetRenderer;
         [SerializeField] private string _mapName = "_BaseMap";
         [SerializeField] private int _texRes = 1024;
-
-        private float _startMawRadius = 0.1f;
-        private float _finalMawRadius = 0.1f;
+        
         private TexturePainter _texturePainter;
         private Texture2D _paintTexture;
         private int _mowedPixels;
@@ -28,12 +26,7 @@ namespace Serjbal
             _targetRenderer.SetPropertyBlock(_propertyBlock);
         }
 
-        public void SetMowRadius(int upgradeLevel)
-        {
-            _finalMawRadius = _startMawRadius * upgradeLevel;
-        }
-
-        public void Mow(Vector3 position)
+        public void Mow(Vector3 position, float radius)
         {
             RaycastHit hit;
             
@@ -42,7 +35,7 @@ namespace Serjbal
                 if (hit.collider.name == gameObject.name)
                 {
                     Vector2 uv = hit.textureCoord;
-                    var painted = _texturePainter.PaintTexture(_paintTexture, uv, _finalMawRadius, Color.white);
+                    var painted = _texturePainter.PaintTexture(_paintTexture, uv, radius, Color.white);
 
                     if (_propertyBlock != null)
                     {

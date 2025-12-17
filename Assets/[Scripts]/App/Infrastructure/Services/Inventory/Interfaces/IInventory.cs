@@ -8,6 +8,6 @@ namespace Serjbal.Infrastructure.Services
         void TakeItem(string itemType, int value);
         int CheckItem(string itemType);
         void SetLevel(int level);
-        void InventoryInfo();
+        InventoryModel InventoryInfo();
     }
 }

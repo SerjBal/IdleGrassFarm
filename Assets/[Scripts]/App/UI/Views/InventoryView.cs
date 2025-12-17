@@ -22,10 +22,10 @@ namespace Serjbal
         private void Start()
         {
             var eventBus = DI.GetService<IEventBus<InventoryEvent>>();
-            eventBus.Subscribe<OnItemsUpdate>(SetData);
+            eventBus.Subscribe<OnItemsUpdateEvent>(SetData);
         }
 
-        private void SetData(OnItemsUpdate eventData)
+        private void SetData(OnItemsUpdateEvent eventData)
         {
             _inventoryModel = eventData.Model;
             Refresh();

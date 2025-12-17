@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Serjbal.Infrastructure.Services;
+using UnityEngine;
 
 namespace Serjbal
 {
@@ -10,19 +11,21 @@ namespace Serjbal
 
         public void Init()
         {
-            var player = DI.GetService<IPlayer>();
-            InitZones(player);
+            InitZones();
             
             Debug.Log("Scene Initialized");
         }
 
-        private void InitZones(IPlayer player)
+        private void InitZones()
         {
+            var player = DI.GetService<IPlayer>();
+            var inventory = DI.GetService<IInventory>();
             _zones = GetComponentsInChildren<IZone>();
+            
             foreach (var zone in _zones)
             {
                 player.OnMow += zone.Mow;
-                zone.OnMewed += player.PutToInventory;
+                zone.OnMewed += inventory.PutItem;
             }
         }
     }

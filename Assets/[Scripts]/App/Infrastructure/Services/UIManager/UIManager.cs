@@ -1,14 +1,8 @@
 ﻿using UnityEngine;
-using Serjbal.Core;
 using UnityEngine.InputSystem;
 
 namespace Serjbal
 {
-
-    public interface IUIManager : IService, IInitializable
-    {
-        
-    }
     public sealed class UIManager : MonoBehaviour, IUIManager
     {
         public void Init()

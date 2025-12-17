@@ -17,7 +17,7 @@ namespace Serjbal.Infrastructure.Services
         public void PutItem(string itemType, int value)
         {
             _model.itemsValue[itemType] += value;
-            _eventBus.Raise(new OnItemsUpdate(_model));
+            _eventBus.Raise(new OnItemsUpdateEvent(_model));
         }
 
         public void TakeItem(string itemType, int value)
@@ -25,15 +25,14 @@ namespace Serjbal.Infrastructure.Services
             if (_model.itemsValue[itemType] >= value)
             {
                 _model.itemsValue[itemType] = value;
-                _eventBus.Raise(new OnItemsUpdate(_model));
+                _eventBus.Raise(new OnItemsUpdateEvent(_model));
             }
             else
             {
                 //no item event
             }
         }
-
-
+        
         public int CheckItem(string itemType)
         {
             return _model.itemsValue[itemType];
@@ -41,12 +40,14 @@ namespace Serjbal.Infrastructure.Services
 
         public void SetLevel(int level)
         {
-           
+            var diff = level - _model.level;
+            _model.level = level;
+            _eventBus.Raise(new OnLevelUpdateEvent(diff));
         }
 
-        public void InventoryInfo()
+        public InventoryModel InventoryInfo()
         {
-            
+            return _model;
         }
     }
 }

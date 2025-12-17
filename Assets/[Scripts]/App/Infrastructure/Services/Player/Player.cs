@@ -6,33 +6,27 @@ namespace Serjbal
 {
     public class Player : MonoBehaviour, IPlayer
     {
-        [SerializeField] private Inventory _inventory;
         [SerializeField] private MoveController _character;
-        public Action<Vector3> OnMow { get; set; }
+        private float _powRadius;
+        private float _mowAnimT = 0.5f;
+        private float _mowAnimTime = 0.5f;
+        private ScytheModel _model;
+        public Action<Vector3, float> OnMow { get; set; }
 
         public void Init()
         {
             Debug.Log("Player Initialized");
         }
         
-        public void PutToInventory(string itemType, int value)
+        public void SetScytheLevel(int level)
         {
-            DI.GetService<IInventory>().PutItem(itemType, value);
+            _model.mowLevel = level;
+            _powRadius = _model.powDefaultRadius * _model.mowLevel/_model.levelCoef;
         }
 
-        public void TakeFromInventory(string itemType, int value)
+        public ScytheModel GetScytheModel()
         {
-            DI.GetService<IInventory>().TakeItem(itemType, value);
-        }
-
-        public int CheckInventory(string itemType)
-        {
-            return DI.GetService<IInventory>().CheckItem(itemType);
-        }
-
-        public void UpgradeInventory(int level)
-        {
-            DI.GetService<IInventory>().SetLevel(level);
+            return _model;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -48,15 +42,12 @@ namespace Serjbal
             if (_character.IsMoving && _mowAnimT == 0)
             {
                 _mowAnimT = _mowAnimTime;
-                OnMow?.Invoke(_character.transform.position);
+                OnMow?.Invoke(_character.transform.position, _powRadius);
             }
             else
             {
                 _mowAnimT = Mathf.Clamp01(_mowAnimT - Time.deltaTime);
             }
         }
-
-        private float _mowAnimT = 0.5f;
-        private float _mowAnimTime = 0.5f;
     }
 }
