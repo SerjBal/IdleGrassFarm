@@ -1,7 +1,6 @@
 namespace Serjbal
 {
-    public interface ICustomer
+    public interface ICustomer : IInteractable
     {
-        void Buy();
     }
 }

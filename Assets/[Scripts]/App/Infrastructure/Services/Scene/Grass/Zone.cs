@@ -6,14 +6,13 @@ namespace Serjbal
     public class Zone : MonoBehaviour, IZone
     {
         [SerializeField] private string _grassType;
-        [SerializeField] private Renderer _targetRenderer;
-        [SerializeField] private string _mapName = "_BaseMap";
+        [SerializeField] private GrassSystem _grassSystem;
+        [SerializeField] private string _mapName = "GrassMaskTex";
         [SerializeField] private int _texRes = 1024;
         
         private TexturePainter _texturePainter;
         private Texture2D _paintTexture;
         private int _mowedPixels;
-        private MaterialPropertyBlock _propertyBlock;
 
         public Action<string, int> OnMewed { get; set; }
 
@@ -21,9 +20,7 @@ namespace Serjbal
         {
             _texturePainter = new TexturePainter();
             _paintTexture = CreateTexture();
-            _propertyBlock = new MaterialPropertyBlock();
-            _propertyBlock.SetTexture(_mapName, _paintTexture);
-            _targetRenderer.SetPropertyBlock(_propertyBlock);
+            _grassSystem.PaintTexture = _paintTexture;
         }
 
         public void Mow(Vector3 position, float radius)
@@ -35,13 +32,9 @@ namespace Serjbal
                 if (hit.collider.name == gameObject.name)
                 {
                     Vector2 uv = hit.textureCoord;
-                    var painted = _texturePainter.PaintTexture(_paintTexture, uv, radius, Color.white);
+                    var painted = _texturePainter.PaintTexture(_paintTexture, uv, radius, Color.black);
 
-                    if (_propertyBlock != null)
-                    {
-                        _propertyBlock.SetTexture(_mapName, _paintTexture);
-                        _targetRenderer.SetPropertyBlock(_propertyBlock);
-                    }
+                    _grassSystem.PaintTexture=_paintTexture;
 
                     OnMewed?.Invoke(_grassType, painted/(_texRes*4));
                 }
@@ -54,7 +47,7 @@ namespace Serjbal
             Color[] colors = new Color[_texRes * _texRes];
             for (int i = 0; i < colors.Length; i++)
             {
-                colors[i] = Color.black;
+                colors[i] = Color.white;
             }
             texture.SetPixels(colors);
             texture.Apply();

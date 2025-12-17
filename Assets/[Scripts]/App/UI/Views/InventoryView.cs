@@ -8,6 +8,7 @@ namespace Serjbal
     {
         [SerializeField] private Transform _itemsContainer;
         [SerializeField] private GameObject[] _itemPrefabs;
+        [SerializeField] private TMPro.TextMeshProUGUI _head;
         
         private Dictionary<string, GameObject> _itemsPrefabsDict = new Dictionary<string, GameObject>();
         private InventoryModel _inventoryModel;
@@ -39,14 +40,16 @@ namespace Serjbal
 
         private void CreateItems()
         {
+            _head.text = $"LVL {_inventoryModel.level}";
+            
             var keys = _itemsPrefabsDict.Keys;
-            foreach (var key in _itemsPrefabsDict.Keys)
+            foreach (var key in keys)
             {
                 var itemUIElement = _itemsPrefabsDict[key];
                 var itemValue = _inventoryModel.itemsValue[key];
                 if (itemValue > 0)
                 {
-                    InstantiateElement(itemUIElement, itemValue);
+                    InstantiateElement(itemUIElement, $"{itemValue}/{_inventoryModel.limit}");
                 }
             }
         }
@@ -57,11 +60,11 @@ namespace Serjbal
                 Destroy(item.gameObject);
         }
 
-        private void InstantiateElement(GameObject IElement, int value)
+        private void InstantiateElement(GameObject IElement, string value)
         {
             var item = Instantiate(IElement, _itemsContainer, false);
             var element = item.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-            element.text = value.ToString();
+            element.text = value;
         }
     }
 }

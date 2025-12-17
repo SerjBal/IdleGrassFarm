@@ -14,12 +14,23 @@ namespace Serjbal
         
         [Header("Inventory Settings")]
         public InventoryModel inventoryModel;
+
+        [Header("Economy Settings")]
+        public EconomyModel economyModel;
     }
 
     [Serializable]
     public struct ItemPrice
     {
         public string item;
-        [FormerlySerializedAs("price")] public int value;
+        public int value;
     }
+
+    [Serializable]
+    public class EconomyModel
+    {
+        public ItemPrice[] scytheLevelUpPrice;
+        public ItemPrice[] inventoryLevelUpPrice;
+    }
+    
 }

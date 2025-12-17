@@ -20,14 +20,25 @@ MonoBehaviour:
       levelPrice:
       - item: Gold
         value: 10
-      - item: GreenGrass
-        value: 50
+      - item: Crystal
+        value: 1
       mowSpeed: 10
     inventoryModel:
-      limit: 99
+      limit: 30
       level: 1
       levelPrice:
       - item: Gold
         value: 20
-      - item: YellowGrass
-        value: 100
+      - item: Crystal
+        value: 2
+    economyModel:
+      scytheLevelUpPrice:
+      - item: Gold
+        value: 10
+      - item: Crystal
+        value: 1
+      inventoryLevelUpPrice:
+      - item: Gold
+        value: 20
+      - item: Crystal
+        value: 2

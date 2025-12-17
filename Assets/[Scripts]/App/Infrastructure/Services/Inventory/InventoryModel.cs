@@ -10,15 +10,16 @@ namespace Serjbal
         public Dictionary<string, int> itemsValue;
         public int limit;
         public int level = 1;
-        public ItemPrice[] levelPrice;
 
 
         public InventoryModel()
         {
             itemsValue = new Dictionary<string, int>();
             itemsValue.Add("Gold", 0);
+            itemsValue.Add("Crystal", 0);
             itemsValue.Add("GreenGrass", 0);
             itemsValue.Add("YellowGrass", 0);
+            
         }
     }
 }
