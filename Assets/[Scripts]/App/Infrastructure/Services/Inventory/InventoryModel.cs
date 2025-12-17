@@ -1,12 +1,17 @@
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Serjbal
 {
+    [Serializable]
     public class InventoryModel
     {
         public Dictionary<string, int> itemsValue;
         public int limit;
-        public int level;
+        public int level = 1;
+        public ItemPrice[] levelPrice;
+
 
         public InventoryModel()
         {
@@ -14,8 +19,6 @@ namespace Serjbal
             itemsValue.Add("Gold", 0);
             itemsValue.Add("GreenGrass", 0);
             itemsValue.Add("YellowGrass", 0);
-            limit = 0;
-            level = 0;
         }
     }
 }

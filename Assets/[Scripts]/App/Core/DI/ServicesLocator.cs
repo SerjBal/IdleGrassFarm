@@ -22,15 +22,6 @@ public static class DI
     {
         AddService(typeof(T), serviceInstance);
     }
-
-    public static void AddService(object serviceInstance)
-    {
-        if (serviceInstance is not IService)
-            throw new ArgumentException($"{serviceInstance.GetType()} does not implement IService");
-
-        var serviceType = serviceInstance.GetType();
-        AddService(serviceType, serviceInstance);
-    }
     
     private static void AddService(Type serviceType, object serviceInstance)
     {
@@ -77,21 +68,6 @@ public static class DI
 
         return iParentType;
     }
-    
-    // public static void RegisterSingle<TService>(TService implementation) where TService : IService
-    // {
-    //     Implementation<TService>.ServiceInstance = implementation;
-    // }
-    //
-    // public static TService Single<TService>() where TService : IService
-    // {
-    //     return Implementation<TService>.ServiceInstance;
-    // }
-    //
-    // private class Implementation<TService> where TService : IService
-    // {
-    //     public static TService ServiceInstance;
-    // }
 }
 
 public interface IService

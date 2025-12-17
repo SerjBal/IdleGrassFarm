@@ -1,15 +1,25 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Serjbal
 {
     [Serializable]
     public class AppSettingsModel
     {
-        [Header("Graphics Settings")]
-        //public int qualityLevel = 2;
-        //public Resolution resolution = new Resolution { width = 1920, height = 1080 };
-        public bool fullscreen = true;
-        //public float brightness = 1f;
+        [Header("Player Settings")]
+        public int playerSpeed = 5;
+        public float playerRotateionSpeed = 15;
+        public ScytheModel scytheModel;
+        
+        [Header("Inventory Settings")]
+        public InventoryModel inventoryModel;
+    }
+
+    [Serializable]
+    public struct ItemPrice
+    {
+        public string item;
+        [FormerlySerializedAs("price")] public int value;
     }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Serjbal
 {
@@ -7,8 +8,8 @@ namespace Serjbal
     public class MoveController : MonoBehaviour
     {
         public bool IsMoving;
-        [SerializeField] private float _moveSpeed = 5f;
-        [SerializeField] private float _rotationSpeed = 15f;
+        public float moveSpeed = 5f;
+        public float rotationSpeed = 15f;
         [SerializeField] private float _gravity = -9.81f;
         [SerializeField] private float _groundCheckDistance = 0.1f;
         [SerializeField] private CharacterController _characterController;
@@ -88,7 +89,7 @@ namespace Serjbal
             if (moveDirection.magnitude > 1f)
                 moveDirection.Normalize();
 
-            Vector3 moveVelocity = moveDirection * _moveSpeed;
+            Vector3 moveVelocity = moveDirection * moveSpeed;
             _characterController.Move(new Vector3(moveVelocity.x, 0, moveVelocity.z) * Time.deltaTime);
         }
 
@@ -112,7 +113,7 @@ namespace Serjbal
                 transform.rotation = Quaternion.Slerp(
                     transform.rotation,
                     targetRotation,
-                    _rotationSpeed * Time.deltaTime
+                    rotationSpeed * Time.deltaTime
                 );
             }
         }

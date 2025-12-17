@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Serjbal
 {
     [CreateAssetMenu]
     public class AppSettings : ScriptableObject
     {
-        public AppSettingsModel config;
+        public AppSettingsModel model;
     }
 }

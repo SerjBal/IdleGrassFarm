@@ -8,9 +8,11 @@ namespace Serjbal
     public class AppEnter : MonoBehaviour
     {
         [SerializeField] private MonoBehaviour[] _services;
+        [SerializeField] private AppSettings _settings;
 
         private void Awake()
         {
+            RegisterSettingsModel();
             RegisterServices();
             RegisterEventBus();
             InitializeServices();
@@ -38,6 +40,10 @@ namespace Serjbal
             }
         }
 
+        private void RegisterSettingsModel()
+        {
+            DI.AddService<AppSettingsModel>(_settings.model);
+        }
 
         private void OnDestroy()
         {

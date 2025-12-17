@@ -9,5 +9,6 @@ namespace Serjbal.Infrastructure.Services
         int CheckItem(string itemType);
         void SetLevel(int level);
         InventoryModel InventoryInfo();
+        bool CheckPrice(ItemPrice[] dataLevelPrice);
     }
 }

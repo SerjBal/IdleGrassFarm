@@ -11,7 +11,7 @@ namespace Serjbal.Infrastructure.Services
         public void Init()
         {
             _eventBus = DI.GetService<IEventBus<InventoryEvent>>();
-            _model = new InventoryModel();
+            _model = DI.GetService<AppSettingsModel>().inventoryModel;
         }
         
         public void PutItem(string itemType, int value)
@@ -48,6 +48,17 @@ namespace Serjbal.Infrastructure.Services
         public InventoryModel InventoryInfo()
         {
             return _model;
+        }
+
+        public bool CheckPrice(ItemPrice[] dataLevelPrice)
+        {
+            bool result = true;
+            foreach (var price in dataLevelPrice)
+            {
+                if (_model.itemsValue[price.item] < price.value)
+                    return false;
+            }
+            return result;
         }
     }
 }

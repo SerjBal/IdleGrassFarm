@@ -440,6 +440,7 @@ MonoBehaviour:
   - {fileID: 769757368}
   - {fileID: 1162907462}
   - {fileID: 783731376}
+  _settings: {fileID: 11400000, guid: 85772e555212942a2ab2244c66b468a6, type: 2}
 --- !u!224 &298574533 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5382485406151160606, guid: 7a041eeabc9794b7b92ea474e1faff96, type: 3}
@@ -789,6 +790,7 @@ MonoBehaviour:
   _grassType: GreenGrass
   _targetRenderer: {fileID: 339640335}
   _mapName: _BlendMask
+  _texRes: 1024
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1122,7 +1124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf3f3d3e38b3a4917a36e4687c1c0dea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Serjbal.Player
-  _inventory: {fileID: 0}
   _character: {fileID: 1479553548}
 --- !u!1 &783731370
 GameObject:
@@ -1417,6 +1418,7 @@ MonoBehaviour:
   _grassType: YellowGrass
   _targetRenderer: {fileID: 1258038356}
   _mapName: _BlendMask
+  _texRes: 1024
 --- !u!64 &1258038355
 MeshCollider:
   m_ObjectHideFlags: 0
