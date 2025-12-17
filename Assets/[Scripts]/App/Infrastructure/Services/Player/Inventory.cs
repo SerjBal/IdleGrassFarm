@@ -1,28 +1,42 @@
+using Serjbal.Core;
 using UnityEngine;
 
 namespace Serjbal.Infrastructure.Services
 {
-    public enum ItemType
-    {
-        GreenGrass, YellowGrass, Gold
-    }
-
     public class Inventory : MonoBehaviour, IInventory
     {
-        public void PutItem(ItemType itemType, int value)
+        private InventoryModel _model;
+        private IEventBus<InventoryEvent> _eventBus;
+
+        public void Init()
         {
-           
+            _eventBus = DI.GetService<IEventBus<InventoryEvent>>();
+            _model = new InventoryModel();
+        }
+        
+        public void PutItem(string itemType, int value)
+        {
+            _model.itemsValue[itemType] += value;
+            _eventBus.Raise(new OnItemsUpdate(_model));
         }
 
-        public void TakeItem(ItemType itemType, int value)
+        public void TakeItem(string itemType, int value)
         {
-           
+            if (_model.itemsValue[itemType] >= value)
+            {
+                _model.itemsValue[itemType] = value;
+                _eventBus.Raise(new OnItemsUpdate(_model));
+            }
+            else
+            {
+                //no item event
+            }
         }
 
 
-        public int CheckItem(ItemType itemType)
+        public int CheckItem(string itemType)
         {
-            return 0;
+            return _model.itemsValue[itemType];
         }
 
         public void SetLevel(int level)

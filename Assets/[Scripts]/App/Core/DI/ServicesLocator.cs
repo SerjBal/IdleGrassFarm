@@ -6,18 +6,7 @@ using UnityEngine;
 public static class DI
 {
     private static readonly Dictionary<Type, object> _services = new Dictionary<Type, object>();
-
-    public static void AddService(Type serviceType, object serviceInstance)
-    {
-        if (serviceType == null)
-            throw new ArgumentNullException(nameof(serviceType));
-        if (!serviceType.IsInstanceOfType(serviceInstance))
-            throw new ArgumentException($"Service instance of type {serviceInstance.GetType()} is not assignable to {serviceType}");
-        if (serviceInstance is not IService)
-            throw new ArgumentException($"{serviceInstance.GetType()} does not implement IService");
-
-        _services[serviceType] = serviceInstance;
-    }
+    
     
     public static void AddService(MonoBehaviour serviceInstance)
     {
@@ -28,14 +17,29 @@ public static class DI
             AddService(iType, serviceInstance);
         }
     }
+    
+    public static void AddService<T>(object serviceInstance)
+    {
+        AddService(typeof(T), serviceInstance);
+    }
 
     public static void AddService(object serviceInstance)
     {
-        if (serviceInstance == null)
-            throw new ArgumentNullException(nameof(serviceInstance));
+        if (serviceInstance is not IService)
+            throw new ArgumentException($"{serviceInstance.GetType()} does not implement IService");
 
         var serviceType = serviceInstance.GetType();
         AddService(serviceType, serviceInstance);
+    }
+    
+    private static void AddService(Type serviceType, object serviceInstance)
+    {
+        if (serviceType == null)
+            throw new ArgumentNullException(nameof(serviceType));
+        if (!serviceType.IsInstanceOfType(serviceInstance))
+            throw new ArgumentException($"Service instance of type {serviceInstance.GetType()} is not assignable to {serviceType}");
+
+        _services[serviceType] = serviceInstance;
     }
 
     public static ICollection<Type> GetAllServices()

@@ -1,6 +1,6 @@
 ﻿namespace Serjbal.Core
 {
-    public interface IService : IInitializable
+    public interface IService
     {
     }
 }

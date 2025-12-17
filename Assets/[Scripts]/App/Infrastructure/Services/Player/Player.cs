@@ -6,6 +6,7 @@ namespace Serjbal
 {
     public class Player : MonoBehaviour, IPlayer
     {
+        [SerializeField] private Inventory _inventory;
         [SerializeField] private MoveController _character;
         public Action<Vector3> OnMow { get; set; }
 
@@ -14,17 +15,17 @@ namespace Serjbal
             Debug.Log("Player Initialized");
         }
         
-        public void PutToInventory(ItemType itemType, int value)
+        public void PutToInventory(string itemType, int value)
         {
             DI.GetService<IInventory>().PutItem(itemType, value);
         }
 
-        public void TakeFromInventory(ItemType itemType, int value)
+        public void TakeFromInventory(string itemType, int value)
         {
             DI.GetService<IInventory>().TakeItem(itemType, value);
         }
 
-        public int CheckInventory(ItemType itemType)
+        public int CheckInventory(string itemType)
         {
             return DI.GetService<IInventory>().CheckItem(itemType);
         }

@@ -1,10 +1,12 @@
+using Serjbal.Core;
+
 namespace Serjbal.Infrastructure.Services
 {
-    public interface IInventory : IService
+    public interface IInventory : IService, IInitializable
     {
-        void PutItem(ItemType itemType, int value);
-        void TakeItem(ItemType itemType, int value);
-        int CheckItem(ItemType itemType);
+        void PutItem(string itemType, int value);
+        void TakeItem(string itemType, int value);
+        int CheckItem(string itemType);
         void SetLevel(int level);
         void InventoryInfo();
     }

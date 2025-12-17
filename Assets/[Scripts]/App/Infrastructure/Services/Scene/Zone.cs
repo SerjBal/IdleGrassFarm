@@ -1,14 +1,14 @@
 using System;
-using Serjbal.Infrastructure.Services;
 using UnityEngine;
 
 namespace Serjbal
 {
     public class Zone : MonoBehaviour, IZone
     {
-        [SerializeField] private ItemType _grassType;
+        [SerializeField] private string _grassType;
         [SerializeField] private Renderer _targetRenderer;
         [SerializeField] private string _mapName = "_BaseMap";
+        [SerializeField] private int _texRes = 1024;
 
         private float _startMawRadius = 0.1f;
         private float _finalMawRadius = 0.1f;
@@ -17,13 +17,12 @@ namespace Serjbal
         private int _mowedPixels;
         private MaterialPropertyBlock _propertyBlock;
 
-        public Action<ItemType, int> OnMewed { get; set; }
+        public Action<string, int> OnMewed { get; set; }
 
         private void Start()
         {
             _texturePainter = new TexturePainter();
             _paintTexture = CreateTexture();
-            
             _propertyBlock = new MaterialPropertyBlock();
             _propertyBlock.SetTexture(_mapName, _paintTexture);
             _targetRenderer.SetPropertyBlock(_propertyBlock);
@@ -51,15 +50,15 @@ namespace Serjbal
                         _targetRenderer.SetPropertyBlock(_propertyBlock);
                     }
 
-                    OnMewed?.Invoke(_grassType, painted);
+                    OnMewed?.Invoke(_grassType, painted/(_texRes*4));
                 }
             }
         }
 
         private Texture2D CreateTexture()
         {
-            var texture = new Texture2D(1024, 1024, TextureFormat.RGBA32, false);
-            Color[] colors = new Color[1024 * 1024];
+            var texture = new Texture2D(_texRes, _texRes, TextureFormat.RGBA32, false);
+            Color[] colors = new Color[_texRes * _texRes];
             for (int i = 0; i < colors.Length; i++)
             {
                 colors[i] = Color.black;

@@ -4,6 +4,7 @@ namespace Serjbal
 {
     public class InventoryUpgrader : MonoBehaviour, IUpgrader
     {
+        
 
         public void Upgrade()
         {

@@ -7,10 +7,4 @@
         LoaderPage,
         QuitGamePopup
     }
-
-    public enum CanvasType
-    {
-        Static,
-        Dynamic
-    }
 }

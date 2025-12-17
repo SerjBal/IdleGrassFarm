@@ -1,4 +1,3 @@
-using System.Linq;
 using Serjbal.Core;
 
 namespace Serjbal
@@ -9,11 +8,11 @@ namespace Serjbal
     public class AppEnter : MonoBehaviour
     {
         [SerializeField] private MonoBehaviour[] _services;
-        //IEventBus<AppEvent> _eventBus;
 
         private void Awake()
         {
             RegisterServices();
+            RegisterEventBus();
             InitializeServices();
         }
 
@@ -25,6 +24,11 @@ namespace Serjbal
             }
         }
 
+        private void RegisterEventBus()
+        {
+            DI.AddService<IEventBus<InventoryEvent>>(new AppEventBus<InventoryEvent>());
+        }
+
         private void RegisterServices()
         {
             foreach (var service in _services)
@@ -33,6 +37,7 @@ namespace Serjbal
                 DI.AddService(service);
             }
         }
+
 
         private void OnDestroy()
         {
