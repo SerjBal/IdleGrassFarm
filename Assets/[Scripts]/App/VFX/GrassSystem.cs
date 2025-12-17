@@ -14,8 +14,8 @@ public class GrassSystem : MonoBehaviour
     public int AgeNoiseColumns = 5;
     [Range(1, 10)]
     public int AgeNoiseRows = 5;
-    public Color YoungGrassColor;
-    public Color OldGrassColor;
+    // public Color YoungGrassColor;
+    // public Color OldGrassColor;
 
     [Header("Wind")]
     public Vector3 WindDirection = new Vector3(0, 0, 1);
@@ -147,8 +147,8 @@ public class GrassSystem : MonoBehaviour
 
         Material.SetVector("WindDirection", WindDirection);
         Material.SetFloat("WindForce", WindForce);
-        Material.SetColor("YoungGrassColor", YoungGrassColor);
-        Material.SetColor("OldGrassColor", OldGrassColor);
+        // Material.SetColor("YoungGrassColor", YoungGrassColor);
+        // Material.SetColor("OldGrassColor", OldGrassColor);
         Material.SetTexture("_GrassMaskTex", PaintTexture);
 
         Graphics.DrawMeshInstancedIndirect(

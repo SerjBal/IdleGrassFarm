@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GrassBlade 1
+  m_Name: YellowGrass
   m_Shader: {fileID: 4800000, guid: 0b49da748ca8741228822865d427f5d3, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -49,8 +49,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _GrassMaskTex:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 0.1, y: 0.1}
-        m_Offset: {x: 1.5, y: 1}
+        m_Scale: {x: 0.05, y: 0.05}
+        m_Offset: {x: 0.75, y: 0.5}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}

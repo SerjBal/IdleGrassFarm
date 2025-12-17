@@ -2,7 +2,7 @@ using UnityEngine;
 
 public static class GrassFactory
 {
-    const float Height = 0.6f;
+    const float Height = 1.5f;
     const float Width = Height / 12;
     const int StepsCount = 4;
     const float StepHeight = Height / StepsCount;
