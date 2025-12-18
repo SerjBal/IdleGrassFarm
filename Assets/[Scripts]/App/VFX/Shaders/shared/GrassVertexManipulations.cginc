@@ -39,3 +39,4 @@ float4 positionGrassVertexInHClipPos(
     // translate the world pos to clip pos
     return TransformWorldToHClip(worldPosition);
 }
+    

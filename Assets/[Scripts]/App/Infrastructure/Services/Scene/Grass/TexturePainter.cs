@@ -40,5 +40,18 @@ namespace Serjbal
             texture.Apply();
             return pixelsPainted;
         }
+        
+        public Texture2D CreateTexture(int resolution)
+        {
+            var texture = new Texture2D(resolution, resolution, TextureFormat.RGBA32, false);
+            Color[] colors = new Color[resolution * resolution];
+            for (int i = 0; i < colors.Length; i++)
+            {
+                colors[i] = Color.white;
+            }
+            texture.SetPixels(colors);
+            texture.Apply();
+            return texture;
+        }
     }
 }

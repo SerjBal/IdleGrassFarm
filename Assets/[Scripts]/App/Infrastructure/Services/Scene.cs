@@ -20,7 +20,7 @@ namespace Serjbal
         {
             var player = DI.GetService<IPlayer>();
             var inventory = DI.GetService<IInventory>();
-            _zones = GetComponentsInChildren<IZone>();
+            _zones = transform.GetComponentsInChildren<IZone>();
             
             foreach (var zone in _zones)
             {
