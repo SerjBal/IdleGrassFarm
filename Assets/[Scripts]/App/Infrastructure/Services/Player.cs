@@ -36,7 +36,7 @@ namespace Serjbal
         public void SetScytheLevel(int level)
         {
             _model.level = level;
-            _powRadius = 0.05f + (_model.level - 1) * _model.levelCoef;
+            _powRadius = _model.defaultRadius + (_model.level - 1) * _model.radiusLevelCoef;
         }
 
         public ScytheModel GetScytheModel()

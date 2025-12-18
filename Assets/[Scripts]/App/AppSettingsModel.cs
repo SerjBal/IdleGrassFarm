@@ -6,15 +6,15 @@ namespace Serjbal
     [Serializable]
     public class AppSettingsModel
     {
-        [Header("Player Settings")]
+        [Header("\n\n[PLAYER SETTINGS]\n\n")]
         public int playerSpeed = 5;
         public float playerRotateionSpeed = 15;
         public ScytheModel scytheModel;
         
-        [Header("Inventory Settings")]
+        [Header("\n\n[INVENTORY SETTINGS]\n\n")]
         public InventoryModel inventoryModel;
 
-        [Header("Economy Settings")]
+        [Header("\n\n[ECONOMY SETTINGS]\n\n")]
         public EconomyModel economyModel;
     }
 
@@ -32,7 +32,7 @@ namespace Serjbal
     }
 
     [Serializable]
-    public class EconomyModel
+    public struct EconomyModel
     {
         public ItemPrice[] scytheLevelUpPrice;
         public ItemPrice[] inventoryLevelUpPrice;

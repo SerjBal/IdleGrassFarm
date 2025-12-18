@@ -16,7 +16,8 @@ MonoBehaviour:
     playerSpeed: 5
     playerRotateionSpeed: 15
     scytheModel:
-      levelCoef: 0.03
+      defaultRadius: 0.04
+      radiusLevelCoef: 0.02
       level: 1
       mowSpeed: 20
     inventoryModel:
