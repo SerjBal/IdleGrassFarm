@@ -7,5 +7,11 @@ namespace Serjbal
     public class AppSettings : ScriptableObject
     {
         public AppSettingsModel model;
+        
+        private void OnEnable()
+        {
+            model.inventoryModel.InitializeDictionary();
+            
+        }
     }
 }

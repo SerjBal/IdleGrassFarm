@@ -1,43 +1,55 @@
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Serjbal
 {
     public class Zone : MonoBehaviour, IZone
     {
-        [SerializeField] private string _grassType;
+        [SerializeField] private ItemType _grassType;
         [SerializeField] private GrassSystem _grassSystem;
         [SerializeField] private int _texRes = 1024;
         
         private TexturePainter _texturePainter;
         private Texture2D _paintTexture;
-        private int _mowedPixels;
-
-        public Action<string, int> OnMewed { get; set; }
+        private float _currentPercent;
+        private float _totalPixels;
+        public Action<ItemPrice> OnMewed { get; set; }
 
         private void Start()
         {
             _texturePainter = new TexturePainter();
             _paintTexture = _texturePainter.CreateTexture(_texRes);
             _grassSystem.PaintTexture = _paintTexture;
+            _totalPixels = _texRes * _texRes;
         }
 
         public void Mow(Vector3 position, float radius)
         {
             RaycastHit hit;
             
-            if (Physics.Raycast(position, Vector3.down, out hit, 100))
+            if (Physics.Raycast(position, Vector3.down, out hit, 10))
             {
                 if (hit.collider.name == gameObject.name)
                 {
-                    Vector2 uv = hit.textureCoord;
-                    var painted = _texturePainter.PaintTexture(_paintTexture, uv, radius, Color.black);
+                    PaintTexture(radius, hit, out var inPercents);
 
-                    _grassSystem.PaintTexture = _paintTexture;
-
-                    OnMewed?.Invoke(_grassType, painted/(_texRes*2));
+                    _currentPercent += inPercents;
+                    if (_currentPercent >= 1)
+                    {
+                        var result = Mathf.FloorToInt(_currentPercent);
+                        OnMewed?.Invoke(new ItemPrice(_grassType, result));
+                        _currentPercent -= result;
+                    }
                 }
             }
+        }
+
+        private void PaintTexture(float radius, RaycastHit hit, out float inPercents)
+        {
+            var painted = _texturePainter.PaintTexture(_paintTexture, hit.textureCoord, radius, Color.black);
+            _grassSystem.PaintTexture = _paintTexture;
+            inPercents = painted / _totalPixels * 100f;
         }
     }
 }

@@ -7,9 +7,15 @@ namespace Serjbal
     public class Player : MonoBehaviour, IPlayer
     {
         [SerializeField] private MoveController _character;
+        [SerializeField] private Transform _scythe;
+        [SerializeField] private VisualTimer _buyTimer;
         private float _powRadius;
         private float _mowAnimT;
         private ScytheModel _model;
+        
+        private Animator _animator;
+        private static readonly int IsMow = Animator.StringToHash("IsMow");
+        
         public Action<Vector3, float> OnMow { get; set; }
 
         public void Init()
@@ -20,7 +26,9 @@ namespace Serjbal
             
             _model = settings.scytheModel;
             SetScytheLevel(_model.level);
-            
+
+            _animator = _character.GetComponent<Animator>();
+                
             Debug.Log("Player Initialized");
         }
         
@@ -40,16 +48,31 @@ namespace Serjbal
         {
             if (other.TryGetComponent<IInteractable>(out var upgrader))
             {
-                upgrader.Interact();
+                _buyTimer.action = upgrader.Interact;
+                _buyTimer.Show();
+            }
+        }
+        
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.TryGetComponent<IInteractable>(out var upgrader))
+            {
+                _buyTimer.Hide();
             }
         }
 
         private void Update()
         {
+            Mow();
+            _animator.SetBool(IsMow, _character.IsMoving);
+        }
+
+        private void Mow()
+        {
             if (_character.IsMoving && _mowAnimT == 0)
             {
                 _mowAnimT = 1;
-                OnMow?.Invoke(_character.transform.position, _powRadius);
+                OnMow?.Invoke(_scythe.position, _powRadius);
             }
             else
             {

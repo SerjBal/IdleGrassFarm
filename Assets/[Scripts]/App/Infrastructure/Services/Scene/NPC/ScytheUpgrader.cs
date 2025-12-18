@@ -9,13 +9,13 @@ namespace Serjbal
         {
             var player = DI.GetService<IPlayer>();
             var levelUp = player.GetScytheModel().level + 1;
-            var levelUpPrice = DI.GetService<AppSettingsModel>().economyModel.scytheLevelUpPrice;
+            var price = DI.GetService<AppSettingsModel>().economyModel.scytheLevelUpPrice;
             var inventory = DI.GetService<IInventory>();
             
-            if (inventory.CheckPrice(levelUpPrice))
+            if (inventory.CheckPrice(price))
             {
-                foreach (var prace in levelUpPrice)
-                    inventory.TakeItem(prace.item, prace.value);
+                foreach (var p in price)
+                    inventory.TakeItem(p);
 
                 player.SetScytheLevel(levelUp);
             }

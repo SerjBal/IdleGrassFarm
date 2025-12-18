@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Serjbal.Core;
 using UnityEngine;
 
@@ -6,17 +8,30 @@ namespace Serjbal
 {
     public class InventoryView : MonoBehaviour
     {
+        [Serializable]
+        public class ItemPrefab
+        {
+            public ItemType item;
+            public GameObject prefab;
+        }
+        
         [SerializeField] private Transform _itemsContainer;
-        [SerializeField] private GameObject[] _itemPrefabs;
+        [SerializeField] private ItemPrefab[] _itemPrefabs;
         [SerializeField] private TMPro.TextMeshProUGUI _head;
         
-        private Dictionary<string, GameObject> _itemsPrefabsDict = new Dictionary<string, GameObject>();
+        private Dictionary<ItemType, GameObject> _itemsPrefabsDict = new Dictionary<ItemType, GameObject>();
         private InventoryModel _inventoryModel;
         
         private void Awake()
         {
             foreach (var prefab in _itemPrefabs)
-                _itemsPrefabsDict.Add(prefab.name, prefab);
+            {
+                _itemsPrefabsDict = _itemPrefabs.ToDictionary(
+                    x => x.item,   
+                    x => x.prefab       
+                );
+            }
+
             CleanItems();
         }
 
@@ -45,11 +60,14 @@ namespace Serjbal
             var keys = _itemsPrefabsDict.Keys;
             foreach (var key in keys)
             {
-                var itemUIElement = _itemsPrefabsDict[key];
-                var itemValue = _inventoryModel.itemsValue[key];
-                if (itemValue > 0)
+                if (_inventoryModel.itemsValue.ContainsKey(key))
                 {
-                    InstantiateElement(itemUIElement, $"{itemValue}/{_inventoryModel.limit}");
+                    var itemUIElement = _itemsPrefabsDict[key];
+                    var itemValue = _inventoryModel.itemsValue[key];
+                    if (itemValue > 0 || key == ItemType.Gold)
+                    {
+                        InstantiateElement(itemUIElement, $"{itemValue}/{_inventoryModel.limit}");
+                    }
                 }
             }
         }

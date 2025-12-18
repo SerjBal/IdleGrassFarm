@@ -14,31 +14,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Serjbal.AppSettings
   model:
     playerSpeed: 5
-    playerRotateionSpeed: 15
+    playerRotateionSpeed: 5
     scytheModel:
+      powDefaultRadius: 0.1
       level: 1
-      levelPrice:
-      - item: Gold
-        value: 10
-      - item: Crystal
-        value: 1
-      mowSpeed: 10
+      mowSpeed: 20
     inventoryModel:
+      itemsDefaults:
+      - item: 0
+        value: 0
+      - item: 1
+        value: 0
+      - item: 2
+        value: 0
+      - item: 3
+        value: 0
       limit: 30
       level: 1
-      levelPrice:
-      - item: Gold
-        value: 20
-      - item: Crystal
-        value: 2
     economyModel:
       scytheLevelUpPrice:
-      - item: Gold
+      - item: 0
         value: 10
-      - item: Crystal
+      - item: 1
         value: 1
       inventoryLevelUpPrice:
-      - item: Gold
+      - item: 0
         value: 20
-      - item: Crystal
+      - item: 1
         value: 2

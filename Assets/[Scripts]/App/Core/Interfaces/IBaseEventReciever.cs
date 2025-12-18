@@ -1,4 +1,4 @@
 ﻿namespace Serjbal.Core
 {
-   // public interface IBaseEventReciever { }
+   public interface IBaseEventReciever { }
 }

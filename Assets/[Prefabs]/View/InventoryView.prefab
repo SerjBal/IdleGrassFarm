@@ -174,10 +174,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   _itemsContainer: {fileID: 2934525073591532445}
   _itemPrefabs:
-  - {fileID: 7610841370215907084, guid: e13be1fd202e64c2f90c168a3d952b42, type: 3}
-  - {fileID: 170601880672682616, guid: f1cffe8882eb4497787a05c992217eb0, type: 3}
-  - {fileID: 965537454889280186, guid: e60de49cf2f9f4baf847f799acb32967, type: 3}
-  - {fileID: 3736507174858166013, guid: f08ee7a85d83b4884a44aa2d3ad99598, type: 3}
+  - item: 0
+    prefab: {fileID: 7610841370215907084, guid: e13be1fd202e64c2f90c168a3d952b42, type: 3}
+  - item: 1
+    prefab: {fileID: 170601880672682616, guid: f1cffe8882eb4497787a05c992217eb0, type: 3}
+  - item: 2
+    prefab: {fileID: 965537454889280186, guid: e60de49cf2f9f4baf847f799acb32967, type: 3}
+  - item: 3
+    prefab: {fileID: 3736507174858166013, guid: f08ee7a85d83b4884a44aa2d3ad99598, type: 3}
   _head: {fileID: 3861784122250948498}
 --- !u!222 &8949417135105582320
 CanvasRenderer:

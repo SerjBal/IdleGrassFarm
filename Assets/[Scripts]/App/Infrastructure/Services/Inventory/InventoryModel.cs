@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Serjbal
@@ -7,19 +8,17 @@ namespace Serjbal
     [Serializable]
     public class InventoryModel
     {
-        public Dictionary<string, int> itemsValue;
+        [SerializeField] private ItemPrice[] itemsDefaults;
+        public Dictionary<ItemType, int> itemsValue = new Dictionary<ItemType, int>();
         public int limit;
         public int level = 1;
-
-
-        public InventoryModel()
+        
+        public void InitializeDictionary()
         {
-            itemsValue = new Dictionary<string, int>();
-            itemsValue.Add("Gold", 0);
-            itemsValue.Add("Crystal", 0);
-            itemsValue.Add("GreenGrass", 0);
-            itemsValue.Add("YellowGrass", 0);
-            
+            itemsValue = itemsDefaults.ToDictionary(
+                x => x.item,   
+                x => x.value       
+            );
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Serjbal
 {
@@ -22,8 +21,14 @@ namespace Serjbal
     [Serializable]
     public struct ItemPrice
     {
-        public string item;
+        public ItemType item;
         public int value;
+
+        public ItemPrice(ItemType item, int value)
+        {
+            this.item = item;
+            this.value = value;
+        }
     }
 
     [Serializable]

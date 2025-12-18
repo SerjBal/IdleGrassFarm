@@ -4,11 +4,12 @@ namespace Serjbal.Infrastructure.Services
 {
     public interface IInventory : IService, IInitializable
     {
-        void PutItem(string itemType, int value);
-        void TakeItem(string itemType, int value);
-        int CheckItem(string itemType);
+        void PutItem(ItemPrice price);
+        void TakeItem(ItemPrice price);
+        void TakeItem(ItemPrice[] price);
         void SetLevel(int level);
         InventoryModel InventoryInfo();
-        bool CheckPrice(ItemPrice[] dataLevelPrice);
+        bool CheckPrice(ItemPrice[] price);
+        bool CheckPrice(ItemPrice price);
     }
 }

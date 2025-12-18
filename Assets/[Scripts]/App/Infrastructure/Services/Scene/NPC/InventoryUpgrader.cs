@@ -9,12 +9,12 @@ namespace Serjbal
         {
             var inventory = DI.GetService<IInventory>();
             var levelUp = inventory.InventoryInfo().level + 1;
-            var levelUpPrice = DI.GetService<AppSettingsModel>().economyModel.inventoryLevelUpPrice;
+            var price = DI.GetService<AppSettingsModel>().economyModel.inventoryLevelUpPrice;
             
-            if (inventory.CheckPrice(levelUpPrice))
+            if (inventory.CheckPrice(price))
             {
-                foreach (var price in levelUpPrice)
-                    inventory.TakeItem(price.item, price.value);
+                foreach (var p in price)
+                    inventory.TakeItem(p);
 
                 inventory.SetLevel(levelUp);
             }
