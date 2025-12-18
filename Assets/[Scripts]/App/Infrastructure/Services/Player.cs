@@ -1,4 +1,5 @@
 using System;
+using Serjbal.Core;
 using Serjbal.Infrastructure.Services;
 using UnityEngine;
 
@@ -35,7 +36,7 @@ namespace Serjbal
         public void SetScytheLevel(int level)
         {
             _model.level = level;
-            _powRadius = _model.powDefaultRadius * _model.level/_model.levelCoef;
+            _powRadius = 0.05f + (_model.level - 1) * _model.levelCoef;
         }
 
         public ScytheModel GetScytheModel()

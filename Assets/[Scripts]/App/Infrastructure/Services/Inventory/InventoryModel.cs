@@ -6,12 +6,12 @@ using UnityEngine;
 namespace Serjbal
 {
     [Serializable]
-    public class InventoryModel
+    public struct InventoryModel
     {
         [SerializeField] private ItemPrice[] itemsDefaults;
-        public Dictionary<ItemType, int> itemsValue = new Dictionary<ItemType, int>();
+        public Dictionary<ItemType, int> itemsValue;
         public int limit;
-        public int level = 1;
+        public int level;
         
         public void InitializeDictionary()
         {

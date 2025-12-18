@@ -38,10 +38,11 @@ namespace Serjbal
         private void Start()
         {
             var eventBus = DI.GetService<IEventBus<InventoryEvent>>();
-            eventBus.Subscribe<OnItemsUpdateEvent>(SetData);
+            eventBus.Subscribe<OnInventoryUpdateEvent>(SetData);
+            
         }
 
-        private void SetData(OnItemsUpdateEvent eventData)
+        private void SetData(OnInventoryUpdateEvent eventData)
         {
             _inventoryModel = eventData.Model;
             Refresh();
@@ -64,9 +65,16 @@ namespace Serjbal
                 {
                     var itemUIElement = _itemsPrefabsDict[key];
                     var itemValue = _inventoryModel.itemsValue[key];
-                    if (itemValue > 0 || key == ItemType.Gold)
+                    if (itemValue > 0)
                     {
                         InstantiateElement(itemUIElement, $"{itemValue}/{_inventoryModel.limit}");
+                    }
+                    else
+                    {
+                        if (key == ItemType.Gold)
+                        {
+                            InstantiateElement(itemUIElement, $"{itemValue}");
+                        }
                     }
                 }
             }

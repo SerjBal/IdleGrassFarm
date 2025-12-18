@@ -4,9 +4,9 @@ namespace Serjbal.Infrastructure.Services
     {
         public int Value { get; }
 
-        public OnLevelUpdateEvent(int diff)
+        public OnLevelUpdateEvent(int level)
         {
-            Value = diff;
+            Value = level;
         }
     }
 }

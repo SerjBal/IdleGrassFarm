@@ -1,9 +1,9 @@
 namespace Serjbal
 {
-    public class OnItemsUpdateEvent : InventoryEvent
+    public class OnInventoryUpdateEvent : InventoryEvent
     {
         public InventoryModel Model { get; }
-        public OnItemsUpdateEvent(InventoryModel inventoryModel)
+        public OnInventoryUpdateEvent(InventoryModel inventoryModel)
         {
             Model = inventoryModel;
         }

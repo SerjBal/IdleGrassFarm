@@ -11,12 +11,12 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 086aa262b7d9647f1aa34839587fbe15, type: 3}
   m_Name: App Settings
-  m_EditorClassIdentifier: Assembly-CSharp::Serjbal.AppSettings
+  m_EditorClassIdentifier: Assembly-CSharp::Serjbal.App.AppSettings
   model:
     playerSpeed: 5
-    playerRotateionSpeed: 5
+    playerRotateionSpeed: 15
     scytheModel:
-      powDefaultRadius: 0.1
+      levelCoef: 0.03
       level: 1
       mowSpeed: 20
     inventoryModel:
@@ -34,11 +34,11 @@ MonoBehaviour:
     economyModel:
       scytheLevelUpPrice:
       - item: 0
-        value: 10
-      - item: 1
-        value: 1
-      inventoryLevelUpPrice:
-      - item: 0
         value: 20
       - item: 1
         value: 2
+      inventoryLevelUpPrice:
+      - item: 0
+        value: 10
+      - item: 1
+        value: 1

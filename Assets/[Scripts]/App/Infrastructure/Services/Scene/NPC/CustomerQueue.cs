@@ -53,6 +53,7 @@ namespace Serjbal
 
         private void GoNextTarget()
         {
+            OnEnable();
             _currentIndex = _currentIndex + 1 < transform.parent.childCount - 1
                 ? _currentIndex + 1
                 : 0;

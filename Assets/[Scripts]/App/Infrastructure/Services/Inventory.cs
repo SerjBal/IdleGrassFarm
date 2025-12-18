@@ -18,7 +18,7 @@ namespace Serjbal.Infrastructure.Services
         public void PutItem(ItemPrice price)
         {
             _model.itemsValue[price.item] += price.value;
-            _eventBus.Raise(new OnItemsUpdateEvent(_model));
+            _eventBus.Raise(new OnInventoryUpdateEvent(_model));
         }
 
         public void TakeItem(ItemPrice price)
@@ -26,7 +26,7 @@ namespace Serjbal.Infrastructure.Services
             if (CheckPrice(price)) 
             {
                 _model.itemsValue[price.item] -= price.value;
-                _eventBus.Raise(new OnItemsUpdateEvent(_model));
+                _eventBus.Raise(new OnInventoryUpdateEvent(_model));
             }
             else
             {
@@ -43,8 +43,9 @@ namespace Serjbal.Infrastructure.Services
         public void SetLevel(int level)
         {
             var diff = level - _model.level;
+            _model.limit += diff * 10;
             _model.level = level;
-            _eventBus.Raise(new OnLevelUpdateEvent(diff));
+            _eventBus.Raise(new OnInventoryUpdateEvent(_model));
         }
 
         public InventoryModel InventoryInfo()
@@ -54,13 +55,12 @@ namespace Serjbal.Infrastructure.Services
 
         public bool CheckPrice(ItemPrice[] price)
         {
-            bool result = true;
             foreach (var p in price)
             {
                 if (_model.itemsValue[p.item] >= p.value)
-                    return false;
+                    return true;
             }
-            return result;
+            return false;
         }
 
         public bool CheckPrice(ItemPrice price)
