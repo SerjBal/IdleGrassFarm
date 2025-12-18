@@ -5,8 +5,8 @@ namespace Serjbal
 {
     public class Scene : MonoBehaviour, IScene
     {
-        private ICustomer _customer;
-        private IUpgrader[] _upgraders;
+        // private ICustomer _customer;
+        // private IUpgrader[] _upgraders;
         private IZone[] _zones;
 
         public void Init()
