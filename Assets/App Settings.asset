@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: App Settings
   m_EditorClassIdentifier: Assembly-CSharp::Serjbal.App.AppSettings
   model:
-    playerSpeed: 5
-    playerRotateionSpeed: 15
-    scytheModel:
-      defaultRadius: 0.04
-      radiusLevelCoef: 0.02
-      level: 1
-      mowSpeed: 20
-    inventoryModel:
-      itemsDefaults:
+    _playerModel:
+      playerSpeed: 5
+      playerRotateionSpeed: 15
+      scytheModel:
+        defaultRadius: 0.04
+        radiusLevelCoef: 0.02
+        level: 1
+        mowSpeed: 20
+    _inventoryModel:
+      _itemsDefaults:
       - item: 0
         value: 0
       - item: 1
@@ -33,7 +34,7 @@ MonoBehaviour:
       limit: 3
       level: 1
       limitLevelCoef: 3
-    economyModel:
+    _economyModel:
       scytheLevelUpPrice:
       - item: 0
         value: 20

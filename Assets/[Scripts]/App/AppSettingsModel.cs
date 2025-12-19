@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Serjbal
@@ -7,15 +8,22 @@ namespace Serjbal
     public class AppSettingsModel
     {
         [Header("\n\n[PLAYER SETTINGS]\n\n")]
-        public int playerSpeed = 5;
-        public float playerRotateionSpeed = 15;
-        public ScytheModel scytheModel;
+        [SerializeField] private PlayerModel _playerModel;
         
         [Header("\n\n[INVENTORY SETTINGS]\n\n")]
-        public InventoryModel inventoryModel;
+        [SerializeField] private InventoryModel _inventoryModel;
 
         [Header("\n\n[ECONOMY SETTINGS]\n\n")]
-        public EconomyModel economyModel;
+        [SerializeField] private EconomyModel _economyModel;
+        
+        public PlayerModel PlayerModel => _playerModel;
+        public InventoryModel InventoryModel => _inventoryModel;
+        public EconomyModel EconomyModel => _economyModel;
+
+        public void InitializeDictionarys()
+        {
+            _inventoryModel.Initialize();
+        }
     }
 
     [Serializable]
@@ -37,5 +45,12 @@ namespace Serjbal
         public ItemPrice[] scytheLevelUpPrice;
         public ItemPrice[] inventoryLevelUpPrice;
     }
-    
+
+    [Serializable]
+    public struct PlayerModel
+    {
+        public int playerSpeed;
+        public float playerRotateionSpeed;
+        public ScytheModel scytheModel;
+    }
 }

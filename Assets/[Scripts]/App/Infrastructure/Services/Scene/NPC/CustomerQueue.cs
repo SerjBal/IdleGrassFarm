@@ -12,14 +12,14 @@ namespace Serjbal
         private ItemType _itemToBuy;
         [SerializeField] private Transform[] _targets;
         private int _currentIndex;
-        private IEventBus<InventoryEvent> _eventBus;
+        private IEventBus<GameEvent> _eventBus;
 
         private void Start()
         {
             _currentIndex = transform.GetSiblingIndex();
             _character.SetTarget(_targets[_currentIndex]);
             
-            _eventBus = DI.GetService<IEventBus<InventoryEvent>>();
+            _eventBus = DI.GetService<IEventBus<GameEvent>>();
             _eventBus.Subscribe((NPCCustomerQueueEvent x) => GoNextTarget());
         }
 
@@ -36,6 +36,8 @@ namespace Serjbal
             if (inventory.CheckPrice(price))
             {
                 inventory.TakeItem(price);
+                inventory.Refresh();
+                
                 switch (_itemToBuy)
                 {
                     case ItemType.GreenGrass:

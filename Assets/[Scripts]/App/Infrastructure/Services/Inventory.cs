@@ -7,18 +7,17 @@ namespace Serjbal.Infrastructure.Services
     public class Inventory : MonoBehaviour, IInventory
     {
         private InventoryModel _model;
-        private IEventBus<InventoryEvent> _eventBus;
+        private IEventBus<GameEvent> _eventBus;
 
         public void Init()
         {
-            _eventBus = DI.GetService<IEventBus<InventoryEvent>>();
-            _model = DI.GetService<AppSettingsModel>().inventoryModel;
+            _eventBus = DI.GetService<IEventBus<GameEvent>>();
+            _model = DI.GetService<AppSettingsModel>().InventoryModel;
         }
         
         public void PutItem(ItemPrice price)
         {
             _model.itemsValue[price.item] += price.value;
-            _eventBus.Raise(new OnInventoryUpdateEvent(_model));
         }
 
         public void TakeItem(ItemPrice price)
@@ -26,7 +25,6 @@ namespace Serjbal.Infrastructure.Services
             if (CheckPrice(price)) 
             {
                 _model.itemsValue[price.item] -= price.value;
-                _eventBus.Raise(new OnInventoryUpdateEvent(_model));
             }
             else
             {
@@ -45,13 +43,9 @@ namespace Serjbal.Infrastructure.Services
             var diff = level - _model.level;
             _model.limit += diff * _model.limitLevelCoef;
             _model.level = level;
-            _eventBus.Raise(new OnInventoryUpdateEvent(_model));
         }
 
-        public InventoryModel InventoryInfo()
-        {
-            return _model;
-        }
+        public InventoryModel InventoryInfo() => (InventoryModel)_model.Clone();
 
         public bool CheckPrice(ItemPrice[] price)
         {
@@ -85,6 +79,11 @@ namespace Serjbal.Infrastructure.Services
                 return _model.itemsValue[price.item] + price.value <= _model.limit;
             }
             return true;
+        }
+
+        public void Refresh()
+        {
+            _eventBus.Raise(new OnGameUpdateEvent(_model));
         }
     }
 }

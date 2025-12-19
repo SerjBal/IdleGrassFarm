@@ -1,6 +1,6 @@
 namespace Serjbal.Infrastructure.Services
 {
-    public class OnLevelUpdateEvent : InventoryEvent
+    public class OnLevelUpdateEvent : GameEvent
     {
         public int Value { get; }
 

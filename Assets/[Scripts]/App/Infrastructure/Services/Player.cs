@@ -22,7 +22,7 @@ namespace Serjbal
 
         public void Init()
         {
-            var settings = DI.GetService<AppSettingsModel>();
+            var settings = DI.GetService<AppSettingsModel>().PlayerModel;
             _character.moveSpeed = settings.playerSpeed;
             _character.rotationSpeed = settings.playerRotateionSpeed;
             
@@ -38,6 +38,7 @@ namespace Serjbal
         {
             _model.level = level;
             _powRadius = _model.defaultRadius + (_model.level - 1) * _model.radiusLevelCoef;
+            DI.GetService<IEventBus<GameEvent>>().Raise(new OnScytheUpdateEvent(_model));
         }
 
         public ScytheModel GetScytheModel()

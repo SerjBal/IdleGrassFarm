@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Serjbal
 {
-    public class NPCCustomerQueueEvent : InventoryEvent
+    public class NPCCustomerQueueEvent : GameEvent
     {
       
     }

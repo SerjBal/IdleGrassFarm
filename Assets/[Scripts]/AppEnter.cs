@@ -28,7 +28,7 @@ namespace Serjbal
 
         private void RegisterEventBus()
         {
-            DI.AddService<IEventBus<InventoryEvent>>(new AppEventBus<InventoryEvent>());
+            DI.AddService<IEventBus<GameEvent>>(new AppEventBus<GameEvent>());
         }
 
         private void RegisterServices()

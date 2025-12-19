@@ -7,6 +7,8 @@ namespace Serjbal
     {
         public void Init()
         {
+            //add pages factory
+            
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             

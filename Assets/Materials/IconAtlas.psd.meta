@@ -228,6 +228,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Scythe
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 347
+        width: 270
+        height: 270
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee479a1b4e0734ea2b1698996b0f97af
+      internalID: -1971874514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -247,6 +269,7 @@ TextureImporter:
       Gold: 1928392322
       GreenGrass: 807078422
       IconAtlas_0: 2087297144
+      Scythe: -1971874514
       YellowGrass: -1363798209
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0

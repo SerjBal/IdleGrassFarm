@@ -26,6 +26,7 @@ namespace Serjbal
             {
                 player.OnMow += zone.Mow;
                 zone.OnMewed += inventory.PutItem;
+                zone.OnMewed += (x) => inventory.Refresh();
             }
         }
     }

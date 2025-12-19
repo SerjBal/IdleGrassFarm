@@ -14,5 +14,6 @@ namespace Serjbal.Infrastructure.Services
         
         bool CheckLimit(ItemPrice[] price);
         bool CheckLimit(ItemPrice price);
+        void Refresh();
     }
 }

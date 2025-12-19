@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Serjbal
 {
@@ -10,8 +9,7 @@ namespace Serjbal
         
         private void OnEnable()
         {
-            model.inventoryModel.InitializeDictionary();
-            
+            model.InitializeDictionarys();
         }
     }
 }
