@@ -36,7 +36,6 @@ namespace Serjbal
             if (inventory.CheckPrice(price))
             {
                 inventory.TakeItem(price);
-                inventory.Refresh();
                 
                 switch (_itemToBuy)
                 {
@@ -48,6 +47,7 @@ namespace Serjbal
                         break;
                 }
 
+                inventory.Refresh();
                 GoNextTarget();
                 _eventBus.Raise(new NPCCustomerQueueEvent());
             }
