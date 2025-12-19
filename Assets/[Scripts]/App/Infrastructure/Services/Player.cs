@@ -2,6 +2,7 @@ using System;
 using Serjbal.Core;
 using Serjbal.Infrastructure.Services;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Serjbal
 {
@@ -9,7 +10,7 @@ namespace Serjbal
     {
         [SerializeField] private MoveController _character;
         [SerializeField] private Transform _scythe;
-        [SerializeField] private VisualTimer _buyTimer;
+        [FormerlySerializedAs("_buyTimer")] [SerializeField] private VisualTimerView buyTimerView;
         private float _powRadius;
         private float _mowAnimT;
         private ScytheModel _model;
@@ -49,8 +50,8 @@ namespace Serjbal
         {
             if (other.TryGetComponent<IInteractable>(out var upgrader))
             {
-                _buyTimer.action = upgrader.Interact;
-                _buyTimer.Show();
+                buyTimerView.action = upgrader.Interact;
+                buyTimerView.Show();
             }
         }
         
@@ -58,7 +59,7 @@ namespace Serjbal
         {
             if (other.TryGetComponent<IInteractable>(out var upgrader))
             {
-                _buyTimer.Hide();
+                buyTimerView.Hide();
             }
         }
 

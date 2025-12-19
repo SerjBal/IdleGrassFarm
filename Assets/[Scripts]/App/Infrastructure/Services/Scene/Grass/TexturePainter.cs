@@ -4,7 +4,7 @@ namespace Serjbal
 {
     public class TexturePainter
     {
-        public int PaintTexture(Texture2D texture, Vector2 point, float radius, Color color)
+        public int CalculateTexture(Texture2D texture, Vector2 point, float radius, Color color)
         {
             int pixelsPainted = 0;
             int centerX = Mathf.RoundToInt(point.x * texture.width);
@@ -37,7 +37,6 @@ namespace Serjbal
                 }
             }
         
-            texture.Apply();
             return pixelsPainted;
         }
         

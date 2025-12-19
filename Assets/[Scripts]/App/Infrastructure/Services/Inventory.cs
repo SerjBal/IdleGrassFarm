@@ -57,15 +57,34 @@ namespace Serjbal.Infrastructure.Services
         {
             foreach (var p in price)
             {
-                if (_model.itemsValue[p.item] >= p.value)
-                    return true;
+                if (!CheckPrice(p))
+                    return false;
             }
-            return false;
+            return true;
         }
 
         public bool CheckPrice(ItemPrice price)
         {
             return _model.itemsValue[price.item] >= price.value;
+        }
+
+        public bool CheckLimit(ItemPrice[] price)
+        {
+            foreach (var p in price)
+            {
+                if (!CheckLimit(p))
+                    return false;
+            }
+            return true;
+        }
+
+        public bool CheckLimit(ItemPrice price)
+        {
+            if (price.item != ItemType.Gold || price.item != ItemType.Crystal)
+            {
+                return _model.itemsValue[price.item] >= _model.limit;
+            }
+            return true;
         }
     }
 }

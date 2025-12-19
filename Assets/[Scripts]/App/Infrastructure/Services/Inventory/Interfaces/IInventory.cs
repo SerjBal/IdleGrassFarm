@@ -11,5 +11,8 @@ namespace Serjbal.Infrastructure.Services
         InventoryModel InventoryInfo();
         bool CheckPrice(ItemPrice[] price);
         bool CheckPrice(ItemPrice price);
+        
+        bool CheckLimit(ItemPrice[] price);
+        bool CheckLimit(ItemPrice price);
     }
 }

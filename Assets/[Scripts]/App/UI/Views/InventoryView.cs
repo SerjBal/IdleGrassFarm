@@ -31,15 +31,15 @@ namespace Serjbal
                     x => x.prefab       
                 );
             }
-
-            CleanItems();
         }
 
         private void Start()
         {
+            _inventoryModel = DI.GetService<AppSettingsModel>().inventoryModel;
             var eventBus = DI.GetService<IEventBus<InventoryEvent>>();
             eventBus.Subscribe<OnInventoryUpdateEvent>(SetData);
-            
+
+            Refresh();
         }
 
         private void SetData(OnInventoryUpdateEvent eventData)
@@ -65,16 +65,13 @@ namespace Serjbal
                 {
                     var itemUIElement = _itemsPrefabsDict[key];
                     var itemValue = _inventoryModel.itemsValue[key];
-                    if (itemValue > 0)
+                    if (key == ItemType.Gold || key == ItemType.Crystal)
+                    {
+                        InstantiateElement(itemUIElement, $"{itemValue}");
+                    }
+                    else if (itemValue > 0)
                     {
                         InstantiateElement(itemUIElement, $"{itemValue}/{_inventoryModel.limit}");
-                    }
-                    else
-                    {
-                        if (key == ItemType.Gold)
-                        {
-                            InstantiateElement(itemUIElement, $"{itemValue}");
-                        }
                     }
                 }
             }

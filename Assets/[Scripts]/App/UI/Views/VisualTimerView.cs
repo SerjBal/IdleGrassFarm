@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Serjbal
 {
-    public class VisualTimer : Page
+    public class VisualTimerView : Page
     {
         [SerializeField] private Image _progressBar;
         public Action action;
