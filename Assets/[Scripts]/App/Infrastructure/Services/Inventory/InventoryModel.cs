@@ -12,6 +12,7 @@ namespace Serjbal
         public Dictionary<ItemType, int> itemsValue;
         public int limit;
         public int level;
+        public int limitLevelCoef;
         
         public void InitializeDictionary()
         {

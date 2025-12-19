@@ -43,7 +43,7 @@ namespace Serjbal.Infrastructure.Services
         public void SetLevel(int level)
         {
             var diff = level - _model.level;
-            _model.limit += diff * 10;
+            _model.limit += diff * _model.limitLevelCoef;
             _model.level = level;
             _eventBus.Raise(new OnInventoryUpdateEvent(_model));
         }
@@ -82,7 +82,7 @@ namespace Serjbal.Infrastructure.Services
         {
             if (price.item != ItemType.Gold || price.item != ItemType.Crystal)
             {
-                return _model.itemsValue[price.item] >= _model.limit;
+                return _model.itemsValue[price.item] + price.value <= _model.limit;
             }
             return true;
         }

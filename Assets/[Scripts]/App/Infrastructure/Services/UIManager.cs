@@ -9,6 +9,7 @@ namespace Serjbal
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            
             Debug.Log("UI Initialized");
         }
        

@@ -30,8 +30,9 @@ MonoBehaviour:
         value: 0
       - item: 3
         value: 0
-      limit: 30
+      limit: 3
       level: 1
+      limitLevelCoef: 3
     economyModel:
       scytheLevelUpPrice:
       - item: 0

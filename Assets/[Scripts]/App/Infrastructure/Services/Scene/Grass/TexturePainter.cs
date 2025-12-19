@@ -37,6 +37,7 @@ namespace Serjbal
                 }
             }
         
+            texture.Apply();
             return pixelsPainted;
         }
         
